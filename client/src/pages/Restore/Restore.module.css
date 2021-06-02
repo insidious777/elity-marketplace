@@ -1,0 +1,101 @@
+.Restore{
+    display: flex;
+    justify-content: center;
+}
+
+.background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:0px;
+    z-index: -3343;
+    background: rgb(16,57,137);
+    background: linear-gradient(90deg, rgba(16,57,137,1) 0%, rgba(148,187,233,1) 100%);
+}
+.resForm{
+    width: 30%;
+    padding: 25px 60px 25px 40px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 90px;
+}
+.resForm input{
+    height: 40px;
+    margin-top: 15px;
+    border-radius: 4px;
+    border: solid 1px #dadbdc;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+.resForm form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.resForm form h1{
+    color: #262729;
+    font-size: 32px;
+}
+
+.butBox{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.butBox button{
+    margin-top: 15px;
+    color: white;
+    background-color:#103989;
+    border-radius: 20px;
+    height: 40px;
+    width: 180px;
+    font-size: 14px;
+}
+
+.regBox{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-top: 30px;
+}
+
+.regBox a{
+    color: #103989;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.regBox p{
+    color: #6b6e75;
+}
+
+@media (max-width: 858px){
+    .resForm{
+        width: 60%;
+        font-size: 0.8em;
+        padding: 15px 40px 15px 40px;
+    }
+    .resForm form h1{
+        font-size: 24px;
+    }
+    .resForm input{
+        height: 20px;
+    }
+
+    .bottomBar{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .bottomBar button{
+        width: 130px;
+        align-self: center;
+        margin-bottom: 10px;
+    }
+
+    .butBox{
+        justify-content: center;
+    }
+}

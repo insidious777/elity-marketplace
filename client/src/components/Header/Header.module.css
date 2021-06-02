@@ -1,0 +1,297 @@
+  .navigation{
+    background:white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 900;
+    padding: 0 10%;
+    box-sizing: border-box;
+  }
+  .logo img{
+    padding-left: 5%;
+    height: 50px;
+
+  }
+
+  .checkbtn, .logo{
+    z-index: 100;
+
+  }
+  .navigation .list{
+    float: right;
+    margin-right: 20px;
+    display: flex;
+  }
+  .navigation .list li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+  }
+  .navigation .list li .link{
+    color: black;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+  }
+  
+  .userBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 23px;
+    color: #8f9297;
+    position: relative;
+  }
+
+  .userIcon{
+    max-width: 40px;
+    margin: 0 10px;
+  }
+
+  .createLot{
+    margin: 0 20px;
+    padding: 5px 10px;
+    height: 34px;
+    border-radius: 20px;
+    border: solid 1px #dadbdc;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .fakeDiv{
+    height: 80px;
+  }
+
+  .checkbtn{
+    font-size: 30px;
+    color:#4f4f4f;
+    float: right;
+    line-height: 80px;
+    margin-right: 5%;
+    cursor: pointer;
+    display: none;
+  }
+  #check{
+    display: none;
+  }
+
+  .list{
+    display: flex;
+    align-items: center;
+  }
+
+  .registerBut{
+    background-color: #103989;
+    color:white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .userDropMenu{
+    position: absolute;
+    user-select: none;
+    z-index: 10;
+    width: 150px;
+    top: 60px;
+    right: 0px;
+    font-size: 14px;
+    padding: 16px 16px 16px 10px;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+    color:#292527;
+  }
+
+  .userDropMenuItem{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+  }
+
+
+  .userDropMenu i{
+    color:#103989;
+    margin-right: 5px;
+  }
+
+  .userDropMenu h3{
+    color: #979797;
+    font-weight: bold;
+  }
+
+  .logout{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    color:#ea1a28;
+  }
+
+  .logout i{
+    color:#ea1a28;
+  }
+
+  .bottomButtons{
+    display: flex;
+  }
+
+  .registerBut{
+    align-self: center;
+  }
+
+  .loginBut{
+    margin: 0 20px 0 40px;
+  }
+
+  .fakeDiv{
+    display: none;
+  }
+
+  @media (max-width: 952px){
+    .logo img{
+      font-size: 30px;
+      padding-left: 5vw;
+    }
+    .navigation .list li .link{
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 858px){
+
+    .navigation{
+      flex-direction: row-reverse;
+      padding: 0 0;
+      position: fixed;
+    }
+    
+    .checkbtn{
+      display: block;
+    }
+    .list{
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      top: 0px;
+      padding-bottom: 40px;
+      padding-top: 80px;
+      left: -100%;
+      text-align: left;
+      transition: all .5s;
+      z-index: 90;
+      box-sizing: border-box;
+    }
+    .navigation .list li .link{
+      padding: 0;
+    }
+    .navigation .list li{
+      display: block;
+      line-height: 30px;
+    }
+    .navigation .list li .link{
+      font-size: 20px;
+    }
+    #check:checked ~ .list {
+      left: 0px;
+    }
+
+    #check:checked .navigation{
+      height: 300px;
+    } 
+
+    .bottomButtons{
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .registerBut{
+      width: 40%;
+      height: 40px;
+      box-sizing: border-box;
+      display: flex;
+      border-radius: 20px;
+      align-items:center;
+      justify-content: center;
+    }
+    .createLot{
+      box-sizing: border-box;
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      left: 15%;
+      right: 15%;
+      white-space: nowrap;
+      background-color: #103989;
+      color: white;
+      font-size: 14px;
+    }
+
+    .userBar{
+      flex-direction: column;
+      align-items: flex-start;
+      box-sizing: border-box;
+    }
+
+    .userDropMenu{
+      position: relative;
+      top:0px;
+      padding: 0;
+      box-shadow: none;
+      width: 100%;
+    }
+
+    .userDropMenu h3{
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    .userDropMenuItem{
+      padding: 15px 0 15px;
+      font-size: 18px;
+      white-space: nowrap;
+      border-bottom: 1px solid #dfdfdf;
+    }
+
+    .logout{
+      padding: 15px 0 15px;
+      font-size: 20px;
+      white-space: nowrap;
+      border-bottom: 1px solid #dfdfdf;
+    }
+    .alert, .menuButton{
+      display: none;
+    }
+
+    .registerBut{
+      position: absolute;
+      bottom: 40px;
+      right: 15%;
+    }
+    .loginBut{
+      position: absolute;
+      bottom: 40px;
+      left: 15%;
+      padding-bottom: 5px;
+    }
+    .fakeDiv{
+      height: 80px;
+      display: block;
+    }
+  }
+
+  

@@ -1,0 +1,309 @@
+.AddLot{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+.content{
+  width: 60%;
+  background-color: white;
+}
+
+.content input, select{
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
+  color: #6b6e74;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: solid 1px #dadbdc;
+}
+
+.content h2{
+  padding: 25px 0;
+  font-size: 24px;
+}
+
+.content label{
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.lotType{
+  background-color: #f3f7ff;
+  padding: 30px 15%;
+}
+.lotType h2{
+  margin-bottom: 15px;
+}
+.lotType label{
+  font-weight: normal;
+  color: #6b6e74;
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+.lotType input{
+  height: inherit;
+  width: 30px;
+  margin-right: 8px;
+
+}
+
+.location, .documents{
+  padding: 0 15%;
+}
+
+.dropBox{
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  border: dashed 1px #556f99;
+  background-color: #f2f7fb;
+  margin-top: 10px;
+  padding: 0 15%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.dropBox h3{
+  color: rgba(38, 39, 41, 0.56);
+  text-align: center;
+}
+
+.dropBox button{
+  height: 40px;
+  width: 30%;
+  color: #6b6e74;
+  margin-top: 15px;
+  border-radius: 4px;
+  border: solid 1px #dadbdc;
+  background-color: rgba(255, 255, 255, 0);
+  margin: auto;
+}
+
+.dropBox input{
+  display: none;
+}
+
+.description textarea{
+  font-size: 16px;
+  width: 100%;
+  height: 120px;
+  resize: none;
+  box-sizing: border-box;
+  color: #6b6e74;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: solid 1px #dadbdc;
+}
+
+.title{
+  padding-top: 24px;
+  padding-bottom: 54px;
+  background-color: #f2f2f2;
+}
+
+.title h1{
+  text-align: center;
+  font-size: 38px;
+}
+
+.lotInfo{
+  padding: 0 15%;
+}
+
+.infoBox label{
+display: block;
+}
+
+.colons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.documentsItems, .photosItems{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.docItem img, .photoItem img{
+  width: 35%;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.docItem p, .photoItem p{
+  cursor: pointer;
+  color: #ea1a28;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.docItem, .photoItem{
+  margin-top: 12px;
+  width: 50%;
+  display: flex;
+}
+
+.photos, .bottomBox{
+  padding: 0 15%;
+}
+
+.bottomBoxContent{
+  margin-top: 58px;
+  background-color: #f3f7ff;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomBoxContent button{
+  background-color: #103989;
+  color:white;
+  border-radius: 20px;
+  width: 40%;
+  height: 40px;
+  font-weight: bold;
+}
+
+.switchBox label{
+  display: block;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #103989;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(21px);
+    -ms-transform: translateX(21px);
+    transform: translateX(21px);
+  }
+
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .auctionTypeContent{
+    display: flex;
+  }
+
+  .auctionTypeContent label{
+    font-weight: normal;
+    margin-bottom: 2px;
+    margin-left: 5px;
+    margin-right: 15px;
+  }
+
+  .auctionType input{
+    width: 14px;
+  }
+
+  .error{
+    color: #d12c2c;
+    text-align: center;
+}
+
+.success{
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.colonItem{
+  width: 100%;
+}
+
+.successContent{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px;
+}
+
+.radioButtons{
+  display: flex;
+}
+  @media (max-width: 858px){
+    .lotInfo, .colons{
+      display: flex;
+      flex-direction: column;
+    }
+    .dropBox{
+      min-width: fit-content;
+      min-height: fit-content;
+      padding: 15px;
+    }
+    .radioButtons{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content{
+      width: 90%;
+    }
+  }

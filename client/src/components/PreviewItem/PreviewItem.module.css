@@ -1,0 +1,41 @@
+.PreviewItem{
+    display: flex;
+    width: 50%;
+    margin-top: 12px;
+}
+
+.PreviewItem img{
+    margin-right: 5px;
+    align-self: flex-start;
+}
+
+.image{
+    width: 35%;
+}
+
+.document{
+    background-color: #e2e2e2;
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    margin-right: 5px;
+}
+.document img{
+    width: 40%;
+}
+
+.PreviewItemText{
+    max-width:100px;
+}
+
+.PreviewItemText h5{
+    max-width: 100%;
+    overflow: hidden;
+}
+.deleteButton{
+    color: #d12c2c;
+    font-weight: bold;
+    cursor: pointer;
+}

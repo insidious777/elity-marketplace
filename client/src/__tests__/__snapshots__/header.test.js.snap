@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header loggined snapshot renders 1`] = `
+Array [
+  <nav
+    className="navigation"
+    style={Object {}}
+  >
+    <input
+      id="check"
+      onClick={[Function]}
+      type="checkbox"
+    />
+    <label
+      className="checkbtn"
+      htmlFor="check"
+    >
+      <i
+        className="fas fa-bars"
+      />
+    </label>
+    <a
+      className="logo"
+      href="/auction"
+      onClick={[Function]}
+    >
+      <img
+        alt="logo"
+        src="logo.png"
+      />
+    </a>
+    <ul
+      className="list"
+    >
+      <li>
+        <a
+          className="link"
+          href="/auction"
+          onClick={[Function]}
+        >
+          Ринок землі
+        </a>
+      </li>
+      <div
+        className="bottomButtons"
+      >
+        <li>
+          <a
+            className="createLot"
+            href="/create/lot"
+            onClick={[Function]}
+          >
+            Створити оголошення
+          </a>
+        </li>
+        <div
+          className="userBar"
+        >
+          <i
+            className="alert far fa-bell"
+          />
+          <img
+            alt="img"
+            className="userIcon"
+            src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+          />
+          <div
+            onClick={[Function]}
+          >
+            <i
+              className="fas fa-chevron-down"
+            />
+          </div>
+        </div>
+      </div>
+    </ul>
+  </nav>,
+  <div
+    className="fakeDiv"
+  />,
+]
+`;
+
+exports[`Header not loggined snapshot renders 1`] = `
+Array [
+  <nav
+    className="navigation"
+    style={Object {}}
+  >
+    <input
+      id="check"
+      onClick={[Function]}
+      type="checkbox"
+    />
+    <label
+      className="checkbtn"
+      htmlFor="check"
+    >
+      <i
+        className="fas fa-bars"
+      />
+    </label>
+    <a
+      className="logo"
+      href="/auction"
+      onClick={[Function]}
+    >
+      <img
+        alt="logo"
+        src="logo.png"
+      />
+    </a>
+    <ul
+      className="list"
+    >
+      <li>
+        <a
+          className="link"
+          href="/auction"
+          onClick={[Function]}
+        >
+          Ринок землі
+        </a>
+      </li>
+      <div
+        className="bottomButtons"
+      >
+        <li>
+          <a
+            className="loginBut"
+            href="/login"
+            onClick={[Function]}
+          >
+            Вхід
+          </a>
+        </li>
+        <a
+          className="registerBut"
+          href="/register"
+          onClick={[Function]}
+        >
+          Реєстрація
+        </a>
+      </div>
+    </ul>
+  </nav>,
+  <div
+    className="fakeDiv"
+  />,
+]
+`;

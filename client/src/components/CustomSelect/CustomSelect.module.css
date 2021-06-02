@@ -1,0 +1,40 @@
+.CustomSelect{
+    position: relative;
+}
+
+.CustomSelect input{
+    min-width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border: solid 1px #dadbdc;
+    background-color: inherit;
+    font-size: 16px;
+    padding: 8px 16px;
+    color: #6b6e74;
+}
+
+.optionsList{
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    background-color: whitesmoke;
+    border: solid 1px #dadbdc;
+    border-bottom: none;
+    max-height: 150px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.optionsItem{
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: solid 1px #dadbdc;
+    padding: 0 10px;
+}
+
+.optionsItem:hover{
+    background-color:  #dadbdc;
+}

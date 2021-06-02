@@ -1,0 +1,158 @@
+
+.Register{
+    display: flex;
+    justify-content: center;
+}
+
+.background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:0px;
+    background: rgb(16,57,137);
+    background: linear-gradient(90deg, rgba(16,57,137,1) 0%, rgba(148,187,233,1) 100%);
+    z-index: -3343;
+}
+
+.regForm{
+    width: 30%;
+    padding: 25px 60px 25px 40px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 90px;
+}
+.regForm input{
+    height: 40px;
+    margin-top: 15px;
+    border-radius: 4px;
+    border: solid 1px #dadbdc;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+.regForm form{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.regForm form h1{
+    color: #262729;
+    font-size: 32px;
+}
+
+.bottomBar{
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.bottomBar button{
+    color: white;
+    background-color:#103989;
+    border-radius: 20px;
+    height: 40px;
+    width: 180px;
+    font-size: 14px;
+}
+.bottomBar a{
+    color: #103989;
+    font-weight: bold;
+}
+
+.bottomBar p{
+    white-space: nowrap;
+}
+
+.bottomText {
+    display: inline;
+    text-align: center;  
+    width: 100%;          
+    margin: 0 auto;      
+    overflow: hidden;    
+}
+
+.bottomText p {
+    display: inline;
+     color: #6b6e75;
+     position: relative;
+     padding: 0 25px;
+     background-color:white;
+     z-index: 222;
+}
+
+.bottomText p:before {
+    display: block;                 
+    width:1000px;                    
+    content: '';                     
+    position: absolute;              
+    border-bottom: 1px solid #abb3d0;  
+    top:50%;                         
+    right: 60px;                   
+}
+
+.bottomText p:after {
+    display: block;
+    width:1000px;
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid #abb3d0;
+    top:50%;
+    left: 60px; 
+}
+
+.error{
+    color: #d12c2c;
+
+}
+
+@media (max-width: 858px){
+    .regForm{
+        width: 80%;
+        font-size: 0.8em;
+        box-sizing: border-box;
+        padding: 10px 40px;
+    }
+
+
+    .regForm input{
+        height: 20px;
+    }
+
+    .regForm form{
+        margin-bottom: 10px;
+    }
+
+    .bottomBar button{
+        width: 80%;
+        font-size: 13px;
+        align-self: center;
+        margin-bottom: 15px;
+    }
+
+    .bottomBar a{
+        font-size: 12px;
+    }
+
+    .regBox{
+        flex-direction: column;
+    }
+
+    .regForm h1{
+        font-size: 18px;
+    }
+
+    .regForm form h1{
+        font-size: 24px;
+    }
+
+    .gmailReg{
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .bottomBar{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    
+}
