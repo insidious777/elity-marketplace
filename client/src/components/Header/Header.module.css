@@ -112,7 +112,9 @@
     cursor: pointer;
   }
 
-
+  .userDropMenuEmail {
+    font-size: 12px
+  }
   .userDropMenu i{
     color:#103989;
     margin-right: 5px;

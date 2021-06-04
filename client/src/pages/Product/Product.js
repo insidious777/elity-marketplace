@@ -64,6 +64,10 @@ function Product(){
         setCartExists(true);
     }
 
+    const buyNowHandler = () => {
+
+    }
+
     useEffect(()=>{
         getData();
         const cartString = localStorage.getItem('cart');
@@ -120,8 +124,8 @@ function Product(){
                             </div>
                             </div>
                             <div className={s.priceBoxButtons}>
-                                <button>Купити</button>
-                                {cartExists?<button className={s.cartDeleteButton} onClick={cartDeleteHandler}>Видалити з кошика</button>:<button onClick={cartHandler}>Додати до кошика</button>}
+                                <button onClick={buyNowHandler}>Купити</button>
+                                {cartExists?<button className={s.cartDeleteButton} onClick={cartDeleteHandler}>Видалити з збереженого</button>:<button onClick={cartHandler}>Зберегти</button>}
                             </div>
                         </div>
                         <div className={s.infoBox}>
@@ -151,6 +155,15 @@ function Product(){
                             <p>{land.description}</p>
                         </div>
                     </div>
+                </div>
+                <h1>Інші оголошення автора:</h1>
+                <div className={s.otherProducts}>
+                    {land && land.user?land.user.other_products.map((el)=>{
+                        if(el._id!==id)
+                            return <a className={s.otherProductsItem}>
+                            <img src={config.baseUrl + el.photo_ids[0]}/>
+                        </a>
+                    }):null}
                 </div>
 
             </div>

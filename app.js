@@ -18,9 +18,6 @@ app.use('/api/regions', require('./routes/region.routes'));
 app.use('/api/products', require('./routes/product.routes'));
 const PORT = process.env.PORT || config.get("port");
 
-// app.post('/', function(req, res, next) {
-//     console.log(req)
-// })
 
 
 async function start() {

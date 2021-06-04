@@ -1,0 +1,117 @@
+.Cabinet{
+    font-family: "Open Sans";
+}
+
+.topBar{
+    background-color: white;
+    padding-top:36px;
+}
+.title{
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0;
+}
+.list{
+    padding: 0 10%;
+    display: flex;
+    max-width: 100%;
+
+}
+
+.active div{
+    background-color: #f2f2f2;
+    border-radius: 8px 8px 0 0;
+    color:#103989;
+}
+
+.active .count{
+    background-color:#abb3d0;
+    border-radius: 8px;
+    color:white;
+}
+.content{
+    padding: 0 10%;
+}
+.listItem{
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    color: #6b6e74;
+    white-space: nowrap;
+}
+.count{
+    margin-left: 5px;
+    font-size: 12px;
+    padding: 4px;
+    background-color:#abb3d0;
+    color:white;
+    border-radius: 11px;
+}
+
+.profileContent{
+    width: 540px;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.profileContent input{
+    box-sizing: border-box;
+    width: 60%;
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #dadbdc;
+    padding: 9px 12px 7px 12px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.profileContent label{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 16px;
+    margin-bottom: 2px;
+}
+
+.profileContent h3{
+    font-size: 16px;
+}
+
+.saveButton{
+    color: white;
+    font-weight: bold;
+    width: 130px;
+    height: 40px;
+    padding: 10px 19px;
+    border-radius: 20px;
+    background-color: #103989;
+    margin-top: 30px;
+}
+
+.photoChangeBox{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.photoChangeBox img{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.photoChangeBox button{
+    font-size: 14px;
+    color: #556f99;
+    width: 130px;
+    height: 40px;
+    border-radius: 20px;
+    border: solid 1px #556f99;
+    background-color: white;
+    margin-left: 20px;
+}

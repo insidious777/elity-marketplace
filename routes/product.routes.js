@@ -101,10 +101,13 @@ router.get('/:id', auth, async (req, res) => {
         const user = await User.findById(product.owner);
         const category = await Category.find({ id: product.category_id});
         const region = await Region.find({ id: product.region_id});
+        const otherProducts = [];
+        for(prod of user.products){
+                let productInfo =  await Product.findById(prod);
+                otherProducts.push(productInfo);
+        }
 
-
-
-        res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email}});
+        res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email, other_products:otherProducts}});
     } catch (e) {
         res.status(500).json({ message: 'Something wrong. Server error' });
     }

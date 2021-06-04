@@ -203,23 +203,37 @@
     }
     
     
-    .zoomPhotoContent{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 100%;
-    }
-    
-    .zoomPhoto img{
-        position: relative;
-        width: 60%;
-        opacity: 100%;
-    }
+.zoomPhotoContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
 
-    .cartDeleteButton{
-        background-color: #ea1a28 !important;
-    }
+.zoomPhoto img{
+    position: relative;
+    width: 60%;
+    opacity: 100%;
+}
+
+.cartDeleteButton{
+    background-color: #ea1a28 !important;
+}
+
+.otherProducts{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.otherProductsItem{
+    width: 30%;
+}
+.otherProductsItem img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
 @media (max-width: 858px){
     .Lot{

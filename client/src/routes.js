@@ -2,8 +2,8 @@ import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import Home from './pages/Home/Home';
 import AddLot from './pages/AddLot/AddLot';
-import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
+import Profile from "./pages/Profile/Profile";
 import Login from './pages/Login/Login';
 import Restore from './pages/Restore/Restore';
 import Product from './pages/Product/Product';
@@ -31,6 +31,12 @@ export const useRoutes = (isAuthenticated) =>{
                     </Route>
                     <Route exact path="/register">
                         <Register/>
+                    </Route>
+                    <Route exact path="/profile/settings">
+                        <Profile/>
+                    </Route>
+                    <Route exact path="/profile/payment">
+                        <Profile/>
                     </Route>
                     <Redirect to="/products/popular"/>
                 </Switch>

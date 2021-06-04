@@ -23,9 +23,9 @@ function Home(){
     },[])
     return(
         <Fragment>
-            <div className={s.TopText}>
-                <h1>Швидко. Просто. Безпечно</h1>
-            </div>
+            {/*<div className={s.TopText}>*/}
+            {/*    <h1>Швидко. Просто. Безпечно</h1>*/}
+            {/*</div>*/}
             <div className={s.Home}>
                 <div className={s.topBar}>
                     <ul className={s.list}>
@@ -33,9 +33,6 @@ function Home(){
                             <NavLink activeClassName={s.active} exact to="/products/popular">
                                 <div className={s.listItem}>
                                     <h3>Популярні</h3>
-                                    <div className={s.count}>
-                                        <p>999</p>
-                                    </div>
                                 </div>
                             </NavLink>
                         </li>

@@ -2,8 +2,12 @@ import React, {Fragment, useState, useRef, useContext} from 'react';
 import s from './Header.module.css'
 import {NavLink, Link, useHistory} from 'react-router-dom';
 import logo from '../../assets/img/logo.png';
+import jwt from 'jwt-decode';
 import {AuthContext} from '../../context/AuthContext';
 function Header(props){
+
+    const userToken = localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null;
+
     const [navStyle, setNavStyle] = useState({});
     const [sideBar, setSideBar] = useState(false);
     const [userMenuShown, setUserMenuShown] = useState(false);
@@ -33,7 +37,6 @@ function Header(props){
     }
     return(
         <Fragment>
-    
                 <nav className={s.navigation} style={navStyle}>
                 <input ref={sideBarButton} type="checkbox" id={s.check} onClick={sidebarHandler}/>
                 <label htmlFor={s.check} className={s.checkbtn}>
@@ -48,7 +51,7 @@ function Header(props){
                     <li><Link className={s.loginBut} onClick={closeSideBar} to="/login">Вхід</Link></li>}
                     {props.isLogined?
                     <div className={s.userBar}>
-                        <i className={s.alert+" fas fa-star"}></i>
+                        <Link to="/products/saved"><i className={s.alert+" fas fa-star"}></i></Link>
                         <img alt="img" src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png" className={s.userIcon}/>
                        <div onClick={()=>{setUserMenuShown(!userMenuShown)}}>
                            {userMenuShown?<i  className={s.menuButton + " fas fa-chevron-up"}></i>:<i className="fas fa-chevron-down"></i>}
@@ -56,10 +59,9 @@ function Header(props){
                        {userMenuShown?
                        <div className={s.userDropMenu}>
                            <h3>Мій кабінет</h3>
+                           <div className={s.userDropMenuEmail}><p>{userToken.email}</p></div>
                            <div className={s.userDropMenuItem}><i className="fas fa-layer-group"></i><p>Оголошення</p></div>
-                           <div className={s.userDropMenuItem}><i className="far fa-file-alt"></i><p>Мої документи</p></div>
-                           <div className={s.userDropMenuItem}><i className="far fa-bell"></i><p>Усі сповіщення</p></div>
-                           <div className={s.userDropMenuItem}><i className="fas fa-cog"></i><p>Налаштування</p></div>
+                           <Link to="/profile/settings" className={s.userDropMenuItem}><i className="fas fa-cog"></i><p>Налаштування</p></Link>
                            <div className={s.logout} onClick={logoutHandler}><i className="fas fa-sign-out-alt"></i><p>Вийти</p></div>
                        </div>:null}
                     </div>:

@@ -9,7 +9,7 @@
 }
 
 .mainImg{
-    border-radius: 8px;
+    border-radius: 8px 0px 0px 8px;
     width: 50%;
     min-width: 50%;
     object-fit: cover;
