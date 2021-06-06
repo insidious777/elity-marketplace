@@ -1,5 +1,5 @@
 {
-  "name": "rynok-zemli-web",
+  "name": "marketplace-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,7 +29,7 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "set 'SERVER_URL=http://localhost' && react-scripts start ",
+    "start": "react-scripts start ",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",

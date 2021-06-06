@@ -1,9 +1,3 @@
 module.exports = {
-    "baseUrl": "http://localhost:5000",
-    "baseWsUrl": "ws://rynok-zemli.com.ua"
+    "baseUrl": process.env.BASE_URL || "http://localhost:5000",
 }
-
-// module.exports = {
-//     "baseUrl": "http://localhost",
-//     "baseWsUrl": "ws://localhost"
-// }
