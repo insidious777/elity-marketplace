@@ -2,7 +2,7 @@ const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const path = require('path');
 
 const app = express();
 app.use(express.json({ extended: true }));
