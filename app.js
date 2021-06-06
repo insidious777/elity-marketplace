@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(express.json({ extended: true }));
 app.use(express.static('uploads'));
+app.use(express.static(path.join(__dirname, 'client' ,'build')));
+
 app.use(bodyParser.json({limit: "500mb"}));
 app.use(bodyParser.urlencoded({limit: "500mb", extended: true, parameterLimit:50000}));
 
@@ -41,3 +43,8 @@ async function start() {
 
 start();
 
+
+
+app.get('/*', function(req,res) {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
