@@ -28,17 +28,20 @@ body{
     color:white;
 }
 .content{
-    padding: 0 10%;
+    min-height: calc(100vh - 331px);
+    padding: 40px 10%;
+    background-color: #abb3d0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-content: flex-start;
 }
 .listItem{
     display: flex;
     padding: 15px;
     align-items: center;
     color: #6b6e74;
-    
+
 }
 .count{
     margin-left: 5px;
@@ -51,6 +54,9 @@ body{
 
 .filter{
     padding:0 10%;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
 }
 
 .filterBottom{
@@ -111,7 +117,7 @@ body{
     position: relative;
 }
 .filterInput input{
-    margin-top: 40px;
+    margin-right: 25px;
     margin-bottom: 20px;
     box-sizing: border-box;
     width: 380px;
@@ -154,7 +160,7 @@ body{
 }
 @media (max-width: 990px){
 
- 
+
     .filterBottom{
         display: none;
     }
@@ -228,7 +234,7 @@ body{
         padding: 0 5%;
         white-space: nowrap;
     }
-    
+
     .setFiltersButton{
         background-color: #103989;
         color: white;

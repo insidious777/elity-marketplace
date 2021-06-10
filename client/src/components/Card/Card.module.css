@@ -5,7 +5,10 @@
     border-radius: 8px;
     display: flex;
     margin-bottom: 20px;
-    border: solid 2px #dadbdc;
+    /*border: solid 2px #dadbdc;*/
+    -webkit-box-shadow: 6px 6px 12px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 6px 6px 12px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 6px 6px 12px 0px rgba(34, 60, 80, 0.2);
 }
 
 .mainImg{

@@ -38,7 +38,18 @@ auth, async (req, res) => {
             const file = await File.findById(id_);
             photos.push(file.url);
         }
-        const product = new Product({title, description, category_id, region_id, photo_ids:photos, price, views_count:0, timestamp, owner: req.user.userId});
+        const product = new Product({
+            title,
+            description,
+            category_id,
+            region_id,
+            photo_ids:photos,
+            price,
+            views_count:0,
+            timestamp,
+            owner: req.user.userId,
+            reviews: []
+        });
         await User.findOneAndUpdate({
             _id:req.user.userId,
         },
@@ -57,7 +68,15 @@ auth, async (req, res) => {
 //вивести всі
 router.get('/',  async (req, res) => {
     try {
-        let products = await Product.find({});
+        const {date, category_id, region_id, search} = req.query;
+        const query = {};
+        if(category_id) query.category_id = category_id;
+        if(region_id) query.region_id = region_id;
+        if(search) query.title = {$regex: search};
+        console.log('date', date)
+        console.log(query);
+        let products = await Product.find(query);
+        if(date==='new') products = await Product.find(query).sort({timestamp: -1});
         const changedProducts = [];
         for(item of products){
             const category = await Category.find({ id: item.category_id});
@@ -72,7 +91,14 @@ router.get('/',  async (req, res) => {
 
 router.get('/popular',  async (req, res) => {
     try {
-        let products = await Product.find({}).sort({"views_count":-1});
+        const {date, category_id, region_id, search} = req.query;
+        const query = {};
+        if(category_id) query.category_id = category_id;
+        if(region_id) query.region_id = region_id;
+        if(search) query.title = {$regex: search};
+        console.log('date', date)
+        console.log(query);
+        let products = await Product.find(query).sort({"views_count":-1});
         const changedProducts = [];
         for(item of products){
             const category = await Category.find({ id: item.category_id});
@@ -84,8 +110,34 @@ router.get('/popular',  async (req, res) => {
         res.status(500).json({ message: 'Something wrong. Server error' });
     }
 });
+
+
+
+router.post('/review/add/:id', auth, async (req, res) => {
+    try {
+        product = await Product.findById(req.params.id);
+        await product.reviews.push({
+            ownerId: req.user.userId,
+            content: req.body.content
+        })
+        await product.save();
+        res.json({status: 'success'});
+    } catch (e) {
+        res.status(500).json({ message: 'Something wrong. Server error' });
+    }
+});
+
+router.get('/counter/',  async (req, res) => {
+    try {
+        let products = await Product.find({});
+        res.json({count: products.length});
+    } catch (e) {
+        res.status(500).json(e);
+    }
+});
+
 //вивести один по id
-router.get('/:id', auth, async (req, res) => {
+router.get('/single/:id', async (req, res) => {
     try {
         let product = await Product.findById(req.params.id);
         await Product.findOneAndUpdate({
@@ -103,30 +155,11 @@ router.get('/:id', auth, async (req, res) => {
         const region = await Region.find({ id: product.region_id});
         const otherProducts = [];
         for(prod of user.products){
-                let productInfo =  await Product.findById(prod);
-                otherProducts.push(productInfo);
+            let productInfo =  await Product.findById(prod);
+            otherProducts.push(productInfo);
         }
 
         res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email, other_products:otherProducts}});
-    } catch (e) {
-        res.status(500).json({ message: 'Something wrong. Server error' });
-    }
-});
-
-//my
-router.get('/my', auth, async (req, res) => {
-    try {
-        const products = await Product.find({ owner: req.user.userId });
-        res.json(products);
-    } catch (e) {
-        res.status(500).json({ message: 'Something wrong. Server error' })
-    }
-});
-
-router.get('/counter/',  async (req, res) => {
-    try {
-        let products = await Product.find({});
-        res.json({count: products.length});
     } catch (e) {
         res.status(500).json({ message: 'Something wrong. Server error' });
     }

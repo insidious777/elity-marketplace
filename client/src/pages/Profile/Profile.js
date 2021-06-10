@@ -1,10 +1,21 @@
 import React, {useState} from 'react';
 import s from './Profile.module.css';
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import defaultPhoto from '../../assets/img/logo.png'
 
 function Profile() {
     const [type, setType] = useState('settings');
+    const [form, setForm] = useState({});
+
+    const changeHandler = (e) => {
+        console.log(e.target.value)
+        console.log(e.target.name)
+        //setForm({...form, [e.target.name]: e.target.value})
+    }
+
+    const submitHandler = (e) => {
+        console.log(form);
+    }
 
     function Settings() {
         return(
@@ -16,16 +27,14 @@ function Profile() {
                     <button>Змінити фото</button>
                 </div>
                 <label>Ім'я</label>
-                <input placeholder="Андрій Андрієнко"/>
+                <input onChange={changeHandler} name="name" placeholder="Андрій"/>
                 <label>Номер телефону</label>
-                <input/>
+                <input onChange={changeHandler} name="phone_number"/>
                 <label>Email</label>
-                <input placeholder="Андрій Андрієнко" type="email"/>
-                <label>Пароль</label>
-                <input placeholder="********" type="password"/>
+                <input onChange={changeHandler} name="email" placeholder="mail@mail.ua" type="email"/>
                 <label>Новий пароль</label>
-                <input type="password"/>
-                <button className={s.saveButton}>Зберегти</button>
+                <input onChange={changeHandler} name="password" type="password"/>
+                <button onClick={submitHandler} className={s.saveButton}>Зберегти</button>
             </div>
         )
     }
@@ -35,19 +44,19 @@ function Profile() {
             <div className={s.profileContent}>
                 <h3>Реквізити для оплати</h3>
                 <label>Номер картки</label>
-                <input placeholder="5268 4839 0485 2075"/>
+                <input onChange={changeHandler} name="card_number" placeholder="5268 4839 0485 2075"/>
                 <label>Ім'я</label>
-                <input placeholder="Олександр"/>
+                <input onChange={changeHandler} name="card_name" placeholder="Олександр"/>
                 <label>Фамілія</label>
-                <input placeholder="Голубець"/>
+                <input onChange={changeHandler} name="card_lastname" placeholder="Голубець"/>
                 <h3 style={{marginTop:'20px'}}>Доставка</h3>
                 <label>Місто</label>
-                <input placeholder="Львів"/>
+                <input onChange={changeHandler} name="city" placeholder="Львів"/>
                 <label>Вулиця</label>
-                <input placeholder="Довженка"/>
+                <input onChange={changeHandler} name="street" placeholder="Довженка"/>
                 <label>Відділення Нової Пошти</label>
-                <input placeholder="7" type="number"/>
-                <button className={s.saveButton}>Зберегти</button>
+                <input onChange={changeHandler} name="apartment" placeholder="7" type="number"/>
+                <button onClick={submitHandler} className={s.saveButton}>Зберегти</button>
             </div>
         )
     }

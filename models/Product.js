@@ -9,6 +9,10 @@ const schema = new Schema({
     price: {type: Number},
     owner: {type: Types.ObjectId, ref:'User'},
     views_count: {type:Number},
+    reviews: [{
+        ownerId: {type: Types.ObjectId},
+        content: {type: String}
+    }],
     timestamp: {type:Number}
 });
 

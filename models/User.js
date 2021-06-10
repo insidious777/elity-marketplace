@@ -5,7 +5,8 @@ const schema = new Schema({
     password: {type: String, required: true},
     name: {type: String, required: true},
     favorites: [{type: Types.ObjectId, ref: 'Product'}],
-    products: [{type: Types.ObjectId, ref: 'Product'}]
+    products: [{type: Types.ObjectId, ref: 'Product'}],
+    is_admin: {type: Boolean}
 });
 
 module.exports = model('User', schema);

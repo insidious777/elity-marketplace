@@ -7,16 +7,16 @@ import {useHttp} from '../../hooks/HttpHook';
 import {useParams} from 'react-router-dom';
 import config from '../../config/config.js';
 import Loading from "../../components/Loading/Loading";
+import {Link} from "react-router-dom";
 
 function Product(){
-    const id = useParams().params;
+    let id = useParams().params;
     const {request, loading} = useHttp();
     const [land, setLand] = useState({});
     const [cartExists, setCartExists] = useState(false);
     const [photos, setPhotos] = useState([]);
     const [zoomPhotoShown, setZoomPhotoShown] = useState(false);
     const [currentImg, setCurrentImg] = useState(0);
-
 
     const nextPhotoHandler = (e) => {
         if(currentImg<photos.length-1) setCurrentImg(currentImg+1);
@@ -29,7 +29,7 @@ function Product(){
     async function getData(){
         let data;
         try{ 
-            data = await request(config.baseUrl + `/api/products/${id}`,'GET');
+            data = await request(config.baseUrl + `/api/products/single/${id}`,'GET');
         }catch(e){
             console.log(e);
         }
@@ -64,8 +64,14 @@ function Product(){
         setCartExists(true);
     }
 
-    const buyNowHandler = () => {
 
+    const addComment = async () => {
+        let data;
+        try{
+            data = await request(config.baseUrl + `/api/products/review/add/${id}`, 'POST', {content:'testContent'});
+        }catch(e){
+            console.log(e);
+        }
     }
 
     useEffect(()=>{
@@ -77,6 +83,7 @@ function Product(){
                 if(el._id===id) setCartExists(true);
             })
         }
+
     },[]);
     return(
         <div className={s.Lot}>
@@ -124,7 +131,7 @@ function Product(){
                             </div>
                             </div>
                             <div className={s.priceBoxButtons}>
-                                <button onClick={buyNowHandler}>Купити</button>
+                                <button onClick={addComment}>Купити</button>
                                 {cartExists?<button className={s.cartDeleteButton} onClick={cartDeleteHandler}>Видалити з збереженого</button>:<button onClick={cartHandler}>Зберегти</button>}
                             </div>
                         </div>
@@ -158,14 +165,13 @@ function Product(){
                 </div>
                 <h1>Інші оголошення автора:</h1>
                 <div className={s.otherProducts}>
-                    {land && land.user?land.user.other_products.map((el)=>{
+                    {land && land.user? land.user.other_products.slice(0,4).map((el)=>{
                         if(el._id!==id)
-                            return <a className={s.otherProductsItem}>
-                            <img src={config.baseUrl + el.photo_ids[0]}/>
-                        </a>
-                    }):null}
+                            return <a href={config.baseUrl + `/product/${el._id}`}>
+                                <img src={config.baseUrl + el.photo_ids[0]}/>
+                            </a>
+                    }) :null}
                 </div>
-
             </div>
         </div>
     )

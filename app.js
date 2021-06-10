@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({limit: "500mb", extended: true, parameterLimit:50
 
 
 app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/admin', require('./routes/admin.routes'));
 app.use('/api/files', require('./routes/files.routes'));
 app.use('/api/categories', require('./routes/category.routes'));
 app.use('/api/regions', require('./routes/region.routes'));
