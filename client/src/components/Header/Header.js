@@ -1,13 +1,13 @@
-import React, {Fragment, useState, useRef, useContext} from 'react';
+import React, {Fragment, useState, useRef, useContext, useEffect} from 'react';
 import s from './Header.module.css'
 import {NavLink, Link, useHistory} from 'react-router-dom';
 import logo from '../../assets/img/logo.png';
 import jwt from 'jwt-decode';
+import config from '../../config/config'
 import {AuthContext} from '../../context/AuthContext';
 function Header(props){
 
-    const userToken = localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null;
-
+    const [userToken, setUserToken] = useState();
     const [navStyle, setNavStyle] = useState({});
     const [sideBar, setSideBar] = useState(false);
     const [userMenuShown, setUserMenuShown] = useState(false);
@@ -35,9 +35,15 @@ function Header(props){
             setUserMenuShown(false);
         }
     }
+
+    useEffect(()=>{
+        setUserToken(localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null);
+        window.addEventListener('storage', setUserToken(localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null))
+    },[])
     return(
         <Fragment>
                 <nav className={s.navigation} style={navStyle}>
+                    {console.log(userToken)}
                 <input ref={sideBarButton} type="checkbox" id={s.check} onClick={sidebarHandler}/>
                 <label htmlFor={s.check} className={s.checkbtn}>
                 <i className="fas fa-bars"></i>
@@ -52,15 +58,15 @@ function Header(props){
                     {props.isLogined?
                     <div className={s.userBar}>
                         <Link to="/products/saved"><i className={s.alert+" fas fa-star"}></i></Link>
-                        <img alt="img" src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png" className={s.userIcon}/>
+                        {userToken && userToken.photo?<img alt="img" src={config.baseUrl + '' + userToken.photo} className={s.userIcon}/>:null}
                        <div onClick={()=>{setUserMenuShown(!userMenuShown)}}>
                            {userMenuShown?<i  className={s.menuButton + " fas fa-chevron-up"}></i>:<i className="fas fa-chevron-down"></i>}
                         </div>
-                       {userMenuShown?
+                       {userMenuShown && userToken?
                        <div className={s.userDropMenu}>
                            <h3>Мій кабінет</h3>
                            <div className={s.userDropMenuEmail}><p>{userToken.email}</p></div>
-                           <div className={s.userDropMenuItem}><i className="fas fa-layer-group"></i><p>Оголошення</p></div>
+                           <Link to="/products/my" className={s.userDropMenuItem}><i className="fas fa-layer-group"></i><p>Оголошення</p></Link>
                            <Link to="/profile/settings" className={s.userDropMenuItem}><i className="fas fa-cog"></i><p>Налаштування</p></Link>
                            <div className={s.logout} onClick={logoutHandler}><i className="fas fa-sign-out-alt"></i><p>Вийти</p></div>
                        </div>:null}

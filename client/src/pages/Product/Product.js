@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef, Fragment} from 'react';
 import s from './Product.module.css';
 import locationIcon from '../../assets/img/combined-shape_2.png';
 import typeIcon from '../../assets/img/combined-shape_3.png';
@@ -6,10 +6,22 @@ import timeIcon from '../../assets/img/combined-shape_4.png';
 import {useHttp} from '../../hooks/HttpHook';
 import {useParams} from 'react-router-dom';
 import config from '../../config/config.js';
+import {useHistory} from 'react-router-dom';
 import Loading from "../../components/Loading/Loading";
+import GliderComponent from 'react-glider-carousel';
+import '../../assets/js/glider.js';
+import '../../assets/styles/glider.css';
 import {Link} from "react-router-dom";
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
 
 function Product(){
+    const dataRef = useRef();
+    const signatureRef = useRef();
+    const formRef = useRef();
+    const areaRef = useRef();
+    const history = useHistory();
+
     let id = useParams().params;
     const {request, loading} = useHttp();
     const [land, setLand] = useState({});
@@ -63,16 +75,79 @@ function Product(){
         }else localStorage.setItem('cart', JSON.stringify([land]));
         setCartExists(true);
     }
+    const renderSlider = () => {
+        return(
+            <GliderComponent key='uniqueKey' settings={{slidesToShow:3}} hasArrows="true">
+                {land && land.user?land.user.other_products.map((el)=>{
+                    if(el._id!==id)
+                        return <div key={el._id} className={s.otherProductsCart}>
+                            <img src={config.baseUrl + el.photo_ids[0]}/>
+                            <div>
+                                <h3>{el.title}</h3>
+                                <h3>{el.price} грн</h3>
+                            </div>
+                            <button onClick={()=>{debugger; history.push(`/product/${el._id}`)}}>Перейти до оголошення</button>
+                        </div>
+                }):null}
+            </GliderComponent>
+        )
+    }
+
+    async function generatePaynametData(price, description){
+            console.log('function')
+            async function sha1(str) {
+                const buf = Uint8Array.from(unescape(encodeURIComponent(str)), c=>c.charCodeAt(0)).buffer;
+                const digest = await crypto.subtle.digest('SHA-1', buf);
+                const raw = String.fromCharCode.apply(null, new Uint8Array(digest));
+                return btoa(raw); // base64
+            }
+            const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
+            const publicKey = 'sandbox_i94658168608';
+            //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
+            const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${land._id}","result_url":"http://localhost:3000/"}`;
+            const data = window.btoa(json);
+            const sign_string = privateKey+data+privateKey;
+
+            const signature = await sha1(sign_string);
+            console.log(data);
+            console.log(signature);
+            dataRef.current.value = data;
+            signatureRef.current.value = signature;
+        }
 
 
     const addComment = async () => {
+        const text = areaRef.current.value;
         let data;
         try{
-            data = await request(config.baseUrl + `/api/products/review/add/${id}`, 'POST', {content:'testContent'});
+            data = await request(config.baseUrl + `/api/products/review/add/${id}`, 'POST', {content:text});
         }catch(e){
             console.log(e);
         }
+        getData();
     }
+
+    const buyHandler = async () => {
+        let data;
+        try{
+            data = await request(config.baseUrl + `/api/products/buy/${id}`);
+        }catch(e){
+            console.log(e);
+        }
+        await generatePaynametData(land.price ,land.title);
+        formRef.current.submit();
+    }
+
+    // const renderSlider = () => {
+    //     let output = [];
+    //         output.push(<GliderComponent  hasArrows="true">);
+    //     land.user.other_products.map((el)=>{
+    //             console.log(el)
+    //         });
+    //     output.push(</GliderComponent>);
+    //     console.log(output);
+    //     //return <Fragment>{ ReactHtmlParser(output) }</Fragment>;
+    // }
 
     useEffect(()=>{
         getData();
@@ -83,8 +158,7 @@ function Product(){
                 if(el._id===id) setCartExists(true);
             })
         }
-
-    },[]);
+    },[id]);
     return(
         <div className={s.Lot}>
             {loading?<Loading/>:null}
@@ -102,6 +176,7 @@ function Product(){
 
                 <div className={s.lotContent}>
                     <div className={s.leftCol}>
+                        {land && land.title?<h1>{land.title}</h1>:null}
                         <div className={s.mainPhoto}>
                         <div onClick={prevPhotoHandler} className={s.leftArr}>
                             <i className="fas fa-chevron-left"></i>
@@ -131,12 +206,17 @@ function Product(){
                             </div>
                             </div>
                             <div className={s.priceBoxButtons}>
-                                <button onClick={addComment}>Купити</button>
+                                <form ref={formRef} method="POST" action="https://www.liqpay.ua/api/3/checkout"
+                                      accept-charset="utf-8">
+                                    <input ref={dataRef} type="hidden" name="data"/>
+                                    <input ref={signatureRef} type="hidden" name="signature"/>
+                                </form>
                                 {cartExists?<button className={s.cartDeleteButton} onClick={cartDeleteHandler}>Видалити з збереженого</button>:<button onClick={cartHandler}>Зберегти</button>}
+                                {land.status=='active'?<button onClick={buyHandler}>Купити</button>:<h3>Товар продано</h3>}
                             </div>
                         </div>
                         <div className={s.infoBox}>
-                            <div>
+                            <div className={s.infoBoxTypes}>
                                 <div className={s.type}>
                                     <img alt="img" className={s.icon} src={typeIcon}/>
                                     <p>{land?land.category:null}</p>
@@ -161,17 +241,33 @@ function Product(){
                         <div className={s.decriptionBox}>
                             <p>{land.description}</p>
                         </div>
+                        <div className={s.coments}>
+                            {land && land.reviews?land.reviews.map((el)=>{
+                                return <div className={s.comentItem}>
+                                    <div>
+                                        <img src={config.baseUrl + '' + el.photo}/>
+                                        <h2>{el.name}</h2>
+                                    </div>
+                                    <p>{el.content}</p>
+                                </div>
+                            }):null}
+                        </div>
+                        <div className={s.reviewBox}>
+                            <h2>Додайте коментар до товару:</h2>
+                            <textarea ref={areaRef}>
+
+                            </textarea>
+                            <button onClick={(e)=>{addComment(e)}}>Добавити відгук</button>
+                        </div>
                     </div>
                 </div>
                 <h1>Інші оголошення автора:</h1>
                 <div className={s.otherProducts}>
-                    {land && land.user? land.user.other_products.slice(0,4).map((el)=>{
-                        if(el._id!==id)
-                            return <a href={config.baseUrl + `/product/${el._id}`}>
-                                <img src={config.baseUrl + el.photo_ids[0]}/>
-                            </a>
-                    }) :null}
+
                 </div>
+                {land && land.user? renderSlider():null}
+
+
             </div>
         </div>
     )

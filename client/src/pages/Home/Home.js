@@ -13,7 +13,6 @@ function Home(){
     const [counter, setCounter] = useState(0);
     const {request} = useHttp();
     const showComponent = (location) => {
-        console.log(location);
         switch (location.pathname) {
             case '/products/popular': return <Popular/>;
             case '/products/all': return <AllProducts onCounterUpdate={setCounter}/>;

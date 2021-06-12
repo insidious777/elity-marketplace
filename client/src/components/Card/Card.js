@@ -10,7 +10,7 @@ function Card(props){
     const location = item.location;
     const linkUrl = `/product/${props.item._id}`;
     return(
-        <Link to={linkUrl} className={s.Card}>
+        <Link to={linkUrl} style={props.style?props.style:null} className={s.Card}>
             <img alt="img" className={s.mainImg} src={item?config.baseUrl + item.photo_ids[0]:null}/>
             <div className={s.cardContent}>
                 <div className={s.left}>

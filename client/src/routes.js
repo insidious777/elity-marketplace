@@ -7,7 +7,7 @@ import Profile from "./pages/Profile/Profile";
 import Login from './pages/Login/Login';
 import Restore from './pages/Restore/Restore';
 import Product from './pages/Product/Product';
-import Admin from "./pages/Admin/Admin";
+import MyProducts from "./pages/MyProducts/MyProducts";
 export const useRoutes = (isAuthenticated) =>{
     console.log('isAuthenticated:', isAuthenticated);
     if(isAuthenticated) return(
@@ -39,8 +39,8 @@ export const useRoutes = (isAuthenticated) =>{
                     <Route exact path="/profile/payment">
                         <Profile/>
                     </Route>
-                    <Route exact path="/admin">
-                        <Admin/>
+                    <Route exact path="/products/my">
+                        <MyProducts/>
                     </Route>
                     <Redirect to="/products/popular"/>
                 </Switch>
@@ -71,8 +71,8 @@ export const useRoutes = (isAuthenticated) =>{
             <Route exact path="/products/saved">
                 <Home/>
             </Route>
-            <Route exact path="/admin">
-                <Admin/>
+            <Route exact path="/products/my">
+                <MyProducts/>
             </Route>
             <Redirect to="/products/popular"/>
         </Switch>

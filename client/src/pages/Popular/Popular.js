@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Loading from "../../components/Loading/Loading";
 
 function Popular(){
+    const inputRef = useRef();
     const [products, setProducts] = useState(null);
     const [filter, setFilter] = useState({date:'new'});
     const [settlementShown, setSettlementShown] = useState(false);
@@ -22,6 +23,7 @@ function Popular(){
 
     const resetFiltersHandler = async () => {
         setFilter({});
+        inputRef.current.value='';
     }
 
     useEffect(()=>{
@@ -48,9 +50,8 @@ function Popular(){
             <div className={s.filter}>
                 <div className={s.filterInput}>
                     <i className="fas fa-search"></i>
-                    <input  placeholder="Введіть назву товару"/>
+                    <input ref={inputRef} onChange={(e)=>{setFilter({...filter, search: e.target.value})}} placeholder="Введіть назву товару"/>
                 </div>
-                <input id={s.filterCheck} type="checkbox" onChange={(e)=>{setSidemenuShown(true)}}/>
                 <label className={s.filtersButton} htmlFor={s.filterCheck}>
                     <p>Фільтри оголошень</p>
                     <i className="fas fa-filter"></i>

@@ -20,13 +20,21 @@
   "author": "Yuriy Stolyaryk <777insidious777@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@admin-bro/express": "^3.1.0",
+    "admin-bro": "^4.0.1",
+    "admin-bro-expressjs": "^2.1.1",
+    "admin-bro-mongoose": "^0.5.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "config": "^3.3.3",
     "express": "^4.17.1",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.15",
+    "react-glider-carousel": "^0.1.2",
+    "react-html-parser": "^2.0.2",
     "react-slick": "^0.28.1"
   },
   "devDependencies": {

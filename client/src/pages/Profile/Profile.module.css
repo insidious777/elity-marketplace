@@ -99,13 +99,48 @@
     margin-top: 10px;
 }
 
+.photoChangeBox input{
+    display: none;
+}
+
 .photoChangeBox img{
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-.photoChangeBox button{
+.success{
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.colonItem{
+    width: 100%;
+}
+
+.successContent{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+}
+
+.photoChangeBox button {
     font-size: 14px;
     color: #556f99;
     width: 130px;

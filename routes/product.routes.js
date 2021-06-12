@@ -48,7 +48,8 @@ auth, async (req, res) => {
             views_count:0,
             timestamp,
             owner: req.user.userId,
-            reviews: []
+            reviews: [],
+            status:'active'
         });
         await User.findOneAndUpdate({
             _id:req.user.userId,
@@ -118,7 +119,9 @@ router.post('/review/add/:id', auth, async (req, res) => {
         product = await Product.findById(req.params.id);
         await product.reviews.push({
             ownerId: req.user.userId,
-            content: req.body.content
+            content: req.body.content,
+            photo: req.user.photo,
+            name: req.user.name
         })
         await product.save();
         res.json({status: 'success'});
@@ -131,6 +134,19 @@ router.get('/counter/',  async (req, res) => {
     try {
         let products = await Product.find({});
         res.json({count: products.length});
+    } catch (e) {
+        res.status(500).json(e);
+    }
+});
+
+router.get('/buy/:id', auth,  async (req, res) => {
+    try {
+       let product = await Product.findById(req.params.id);
+       console.log(product);
+       product.status = 'sold';
+       product.buyer = req.user.userId;
+       await product.save();
+        res.json({product});
     } catch (e) {
         res.status(500).json(e);
     }
@@ -159,10 +175,20 @@ router.get('/single/:id', async (req, res) => {
             otherProducts.push(productInfo);
         }
 
+
+
         res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email, other_products:otherProducts}});
     } catch (e) {
         res.status(500).json({ message: 'Something wrong. Server error' });
     }
 });
+
+router.get('/liqpay/', async (req, res) => {
+      console.log('GET',req.body);
+})
+
+router.post('/liqpay/', async (req, res) => {
+    console.log('POST',req.body);
+})
 
 module.exports = router;

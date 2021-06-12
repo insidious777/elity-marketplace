@@ -1,4 +1,4 @@
-import React, {useState, useContext, useRef} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import PreviewItem from '../../components/PreviewItem/PreviewItem';
 import CustomSelect from '../../components/CustomSelect/CustomSelect';
 import s from './AddLot.module.css';
@@ -9,22 +9,19 @@ import { FileDrop } from 'react-file-drop'
 import { AuthContext } from '../../context/AuthContext';
 import InputMask from 'react-input-mask';
 import Loading from '../../components/Loading/Loading'
+import jwt from "jwt-decode";
 function AddProduct(){
     const history = useHistory();
     const {request, requestErrors} = useHttp();
-    const auth = useContext(AuthContext);
     const [form, setForm] = useState({});
-    const [location, setLocation] = useState({});
-    const [immediateBuy, setImmediateBuy] = useState(false);
-    const [auctionForm, setAuctionForm] = useState({});
     const [lotType, setLotType] = useState('fixed');
     const [auctionType, setAuctionType] = useState('PROGRESSIVE');
     const [previewImages, setPreviewImages] = useState([]);
-    const [previewDocuments, setPreviewDocuments] = useState([]);
-    const [documentIds, setDocumentIds] = useState([]);
     const [photoIds, setPhotoIds] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [successShown, setSuccessShown] = useState(false);
+    const [errorShown, setErrorShown] = useState(false);
+
 
     const submitHandler = async () => {
         let data;
@@ -53,39 +50,29 @@ function AddProduct(){
         setPreviewImages(oldPreviews);
    }
 
-    const deleteDocumentsHandler = (id) => {
-        let oldIds = [...documentIds];
-        oldIds.splice(id, 1);
-        setDocumentIds(oldIds);
-
-        let oldPreviews = [...previewDocuments];
-        oldPreviews.splice(id, 1);
-        setPreviewDocuments(oldPreviews);
-    }
-    const formChangeHandler = (e) => {
-         setForm({...form, [e.target.name]: e.target.value});
-    }
-
     const photosHandler = async (files) => {
         const images = await fileListToBase64(files);
         let promises = [];
         let ids = [];
         let preview = [];
-        images.map((image)=>{
-            if(!previewImages.some((el)=>el.encoded_file === image.encoded_file)){
-                const promise = request(config.baseUrl + '/api/files/add','POST', image);
-                promise.then((data)=>{
+        images.map((image) => {
+            if (!previewImages.some((el) => el.encoded_file === image.encoded_file)) {
+                const promise = request(config.baseUrl + '/api/files/add', 'POST', image);
+                promise.then((data) => {
                     ids.push(data._id);
                     preview.push(image);
                 })
                 promises.push(promise);
             }
         })
-        Promise.all(promises).then(()=>{
-            setPhotoIds([...photoIds,...ids]);
-            setPreviewImages([...previewImages,...preview]);
+        Promise.all(promises).then(() => {
+            setPhotoIds([...photoIds, ...ids]);
+            setPreviewImages([...previewImages, ...preview]);
         })
+    }
         
+    const formChangeHandler = (e) => {
+        setForm({...form, [e.target.name]: e.target.value})
     }
 
     async function fileListToBase64(fileList) {
@@ -112,14 +99,22 @@ function AddProduct(){
         return await Promise.all(promises)
       }
 
-    const lotTypeHandler = (e) => {
-        setLotType(e.target.id);
-    }
+      useEffect(async ()=>{
+          const user = await jwt(JSON.parse(localStorage.getItem('userData')).token);
+          let data;
+          try{
+              data = await request(config.baseUrl + `/api/auth/user/${user.userId}`);
+              console.log(data);
+              if(data && data.info && data.info.phone_number) {
+                  console.log('good');
+              }else{
+                  setErrorShown(true);
+              }
+          }catch(e){
+              console.log(e);
+          }
+      },[])
 
-    const auctionTypeHandler = (e) => {
-        setAuctionType(e.target.id);
-    }
-    
     return(
         <div className={s.AddLot}>
             <div className={s.content}>
@@ -191,6 +186,13 @@ function AddProduct(){
                                 <button onClick={()=>{history.push(`/`)}}>Готово</button>
                             </div>
                         </div>:null}
+                        {errorShown?
+                            <div className={s.success}>
+                                <div className={s.successContent}>
+                                    <h2>Відсутні данні про користувача</h2>
+                                    <button onClick={()=>{history.push(`/profile/settings`)}}>Налаштування</button>
+                                </div>
+                            </div>:null}
                     </div>
                 </div>
             </div>

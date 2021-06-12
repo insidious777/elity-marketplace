@@ -80,9 +80,8 @@
 }
 
 .otherPhotos img{
-    max-height: calc(100% - 15px);
-    align-self: top;
     margin-right: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
@@ -97,6 +96,7 @@
     justify-content: space-between;
     border-radius: 8px;
     min-width: fit-content;
+    margin-bottom: 15px;
 }
 
 .priceBoxButtons{
@@ -139,11 +139,20 @@
     margin-top: 15px;
     word-break: normal;
     min-width: fit-content;
+    border-radius: 8px;
+    background-color: #f2f2f2;
+    padding: 0 10px;
 }
 
 .lotOwner img{
     width: 50px;
     height: 50px;
+}
+
+.infoBoxTypes{
+    border-radius: 8px;
+    background-color: #f2f2f2;
+    padding: 0 10px;
 }
 
 .type{
@@ -157,6 +166,9 @@
 
 .decriptionBox{
     margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f2f2f2;
+    padding: 0 10px;
 }
 
 .betsTitle{
@@ -185,7 +197,9 @@
 }
 
 .mainPhoto img{
+    height: 25vw;
     width: 100%;
+    object-fit: cover;
 }
 
 .zoomPhoto{
@@ -221,18 +235,105 @@
     background-color: #ea1a28 !important;
 }
 
-.otherProducts{
-    display: flex;
-    justify-content: space-evenly;
+.otherProductsCart{
+    height: 20vw !important;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 5px;
+    margin-bottom: 50px;
 }
 
-.otherProductsItem{
-    width: 30%;
-}
-.otherProductsItem img{
+.otherProductsCart img{
     width: 100%;
-    height: 200px;
+    height: 15vw;
+    object-fit: cover !important;
+}
+
+.otherProductsCart div{
+    display: flex;
+    padding: 0 30px;
+    justify-content: space-between;
+}
+
+.otherProductsCart button{
+    margin-top: 10px;
+    width: 60%;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 20px;
+    border: solid 1px #dadbdc;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 50%;
+    transform: translate(-50%);
+    font-size: 16px;
+}
+
+.reviewBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f2f2f2;
+    border-radius: 8px;
+    padding: 0 20px;
+}
+
+.reviewBox h2{
+    text-align: center;
+    margin: 15px 0;
+}
+
+.reviewBox textarea{
+    resize: none;
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 20px;
+    font-size: 16px;
+    height: 100px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+
+.reviewBox button{
+    height: 40px;
+    padding: 9px 15px 10px;
+    background-color: #103989;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius:20px ;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    align-self: flex-end;
+}
+
+.comentItem{
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    word-break: break-all;
+    padding: 15px 20px;
+}
+
+.comentItem div {
+    display: flex;
+    align-items: center;
+}
+
+.comentItem h2 {
+    font-size: 18px;
+}
+
+.comentItem img{
+    width: 40px;
+    height: 40px;
     object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 @media (max-width: 858px){

@@ -11,8 +11,12 @@ const schema = new Schema({
     views_count: {type:Number},
     reviews: [{
         ownerId: {type: Types.ObjectId},
-        content: {type: String}
+        content: {type: String},
+        photo: {type: String},
+        name: {type: String}
     }],
+    status: {type:String},
+    buyer: {type: Types.ObjectId},
     timestamp: {type:Number}
 });
 

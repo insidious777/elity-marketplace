@@ -28,7 +28,7 @@ body{
     color:white;
 }
 .content{
-    min-height: calc(100vh - 331px);
+    min-height: calc(100vh - 251px);
     padding: 40px 10%;
     background-color: #abb3d0;
     display: flex;

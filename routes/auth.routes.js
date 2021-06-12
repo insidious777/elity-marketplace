@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config')
 const {check, validationResult} = require('express-validator');
+const Product = require('../models/Product');
 const router = Router();
+const auth = require('../middleware/auth.middleware');
 
 router.post(
     '/register',
@@ -39,7 +41,7 @@ router.post(
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, password: hashedPassword, name});
+        const user = new User({ email, password: hashedPassword, name, photo:'/userPhoto.png'});
         await user.save();
 
         res.status(201).json({ message: "Користувача створено"});
@@ -79,7 +81,7 @@ router.post(
                 return res.status(400).json({ message: "Неправильний пароль" })
             }
             const token = jwt.sign(
-                { userId: user.id, email:user.email, name:user.name },
+                { userId: user.id, email:user.email, name:user.name, photo:user.photo },
                 config.get('jwtSecret'),
                 { expiresIn: '365d' }
             )
@@ -91,5 +93,51 @@ router.post(
         }
 })
 
+router.get('/user/:id',  async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const newUser = {...user};
+        delete newUser._doc.password;
+        const fullProducts = [];
+
+        for(let i =0;i<newUser._doc.products.length;i++){
+            let product = await Product.findById(newUser._doc.products[i]);
+            fullProducts.push(product);
+        }
+        res.json({...newUser._doc, products: fullProducts});
+        res.json(fullProducts);
+    } catch (e) {
+        res.status(500).json({ message: 'Something wrong. Server error' });
+    }
+});
+
+router.post('/user/info', auth, async (req, res) => {
+    console.log(req.body);
+    try {
+        const user = await User.findByIdAndUpdate(req.user.userId,{info:{
+            ...req.body
+            }});
+        user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ message: 'Something wrong. Server error' });
+    }
+});
+
+router.post('/user/photo', auth, async (req, res) => {
+    console.log(req.body);
+    try {
+        const user = await User.findByIdAndUpdate(req.user.userId,{photo:req.body.url});
+        user.save();
+        const token = jwt.sign(
+            { userId: user.id, email:user.email, name:user.name, photo:req.body.url },
+            config.get('jwtSecret'),
+            { expiresIn: '365d' }
+        )
+        res.json({token});
+    } catch (e) {
+        res.status(500).json({ message: 'Something wrong. Server error' });
+    }
+});
 
 module.exports = router;
