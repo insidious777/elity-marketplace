@@ -6,11 +6,11 @@ const path = require('path');
 // const AdminBro = require('admin-bro')
 // const AdminBroExpress = require('@admin-bro/express');
 // const AdminBroMongoose = require('admin-bro-mongoose');
-require('../diplom/models/Category');
-require('../diplom/models/File');
-require('../diplom/models/Product');
-require('../diplom/models/Region');
-require('../diplom/models/User');
+// require('../diplom/models/Category');
+// require('../diplom/models/File');
+// require('../diplom/models/Product');
+// require('../diplom/models/Region');
+// require('../diplom/models/User');
 
 const app = express();
 // AdminBro.registerAdapter(AdminBroMongoose);
