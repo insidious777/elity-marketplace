@@ -175,20 +175,10 @@ router.get('/single/:id', async (req, res) => {
             otherProducts.push(productInfo);
         }
 
-
-
-        res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email, other_products:otherProducts}});
+        res.json({...product._doc,category: category[0].name, region: region[0].name, user:{name:user.name, email:user.email, picture:user.photo, other_products:otherProducts}});
     } catch (e) {
         res.status(500).json({ message: 'Something wrong. Server error' });
     }
 });
-
-router.get('/liqpay/', async (req, res) => {
-      console.log('GET',req.body);
-})
-
-router.post('/liqpay/', async (req, res) => {
-    console.log('POST',req.body);
-})
 
 module.exports = router;

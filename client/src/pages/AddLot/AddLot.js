@@ -146,7 +146,7 @@ function AddProduct(){
                     </div>
                     <div className={s.description}>
                         <label>Опис товару</label>
-                        <textarea onChange={formChangeHandler} name="description" placeholder="Опишіть ваш товар у деталях..."/>
+                        <textarea maxLength="150" onChange={formChangeHandler} name="description" placeholder="Опишіть ваш товар у деталях..."/>
                     </div>
                 </div>
 

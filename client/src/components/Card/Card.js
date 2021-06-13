@@ -33,7 +33,6 @@ function Card(props){
                     </div>
                 </div>
                 <div className={s.right}>
-                    <div className={s.saveBtn}><i className="far fa-star"></i><p>Зберегти</p></div>
                     <h4>Ціна:</h4>
                     <p>{item?item.price:null} грн</p>
                 </div>

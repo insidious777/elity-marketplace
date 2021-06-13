@@ -11,8 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import GliderComponent from 'react-glider-carousel';
 import '../../assets/js/glider.js';
 import '../../assets/styles/glider.css';
-import {Link} from "react-router-dom";
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
 
 
 function Product(){
@@ -22,7 +21,10 @@ function Product(){
     const areaRef = useRef();
     const history = useHistory();
 
+
     let id = useParams().params;
+    const [otherProductsShown, setOtherProductsShown] = useState(true);
+    const [productId, setProductId] = useState(id);
     const {request, loading} = useHttp();
     const [land, setLand] = useState({});
     const [cartExists, setCartExists] = useState(false);
@@ -41,7 +43,7 @@ function Product(){
     async function getData(){
         let data;
         try{ 
-            data = await request(config.baseUrl + `/api/products/single/${id}`,'GET');
+            data = await request(config.baseUrl + `/api/products/single/${productId}`,'GET');
         }catch(e){
             console.log(e);
         }
@@ -55,11 +57,8 @@ function Product(){
     const cartDeleteHandler = () => {
         let cart = JSON.parse(localStorage.getItem('cart'));
         cart.map((el,elId)=>{
-            console.log(el);
-            console.log(id);
-            if(el._id === id) {
+            if(el._id === productId) {
                 cart.splice(elId, 1);
-                console.log('found')
             }
 
         })
@@ -79,14 +78,14 @@ function Product(){
         return(
             <GliderComponent key='uniqueKey' settings={{slidesToShow:3}} hasArrows="true">
                 {land && land.user?land.user.other_products.map((el)=>{
-                    if(el._id!==id)
+                    if(el._id!==productId)
                         return <div key={el._id} className={s.otherProductsCart}>
                             <img src={config.baseUrl + el.photo_ids[0]}/>
                             <div>
                                 <h3>{el.title}</h3>
                                 <h3>{el.price} грн</h3>
                             </div>
-                            <button onClick={()=>{debugger; history.push(`/product/${el._id}`)}}>Перейти до оголошення</button>
+                            <button onClick={()=>{setOtherProductsShown(false);setProductId(el._id)}}>Перейти до оголошення</button>
                         </div>
                 }):null}
             </GliderComponent>
@@ -94,25 +93,30 @@ function Product(){
     }
 
     async function generatePaynametData(price, description){
-            console.log('function')
             async function sha1(str) {
                 const buf = Uint8Array.from(unescape(encodeURIComponent(str)), c=>c.charCodeAt(0)).buffer;
                 const digest = await crypto.subtle.digest('SHA-1', buf);
                 const raw = String.fromCharCode.apply(null, new Uint8Array(digest));
                 return btoa(raw); // base64
             }
-            const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
-            const publicKey = 'sandbox_i94658168608';
-            //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
-            const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${land._id}","result_url":"http://localhost:3000/"}`;
-            const data = window.btoa(json);
-            const sign_string = privateKey+data+privateKey;
+            try{
+                const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
+                const publicKey = 'sandbox_i94658168608';
+                //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
+                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}","result_url":"http://45.90.33.206:3000/"}`;
+                console.log(json);
+                const data = btoa(json);
+                const sign_string = privateKey+data+privateKey;
 
-            const signature = await sha1(sign_string);
-            console.log(data);
-            console.log(signature);
-            dataRef.current.value = data;
-            signatureRef.current.value = signature;
+                const signature = await sha1(sign_string);
+                console.log(data);
+                console.log(signature);
+                dataRef.current.value = data;
+                signatureRef.current.value = signature;
+            }catch (e) {
+                console.log(e);
+            }
+
         }
 
 
@@ -120,7 +124,7 @@ function Product(){
         const text = areaRef.current.value;
         let data;
         try{
-            data = await request(config.baseUrl + `/api/products/review/add/${id}`, 'POST', {content:text});
+            data = await request(config.baseUrl + `/api/products/review/add/${productId}`, 'POST', {content:text});
         }catch(e){
             console.log(e);
         }
@@ -130,7 +134,7 @@ function Product(){
     const buyHandler = async () => {
         let data;
         try{
-            data = await request(config.baseUrl + `/api/products/buy/${id}`);
+            data = await request(config.baseUrl + `/api/products/buy/${productId}`);
         }catch(e){
             console.log(e);
         }
@@ -138,27 +142,17 @@ function Product(){
         formRef.current.submit();
     }
 
-    // const renderSlider = () => {
-    //     let output = [];
-    //         output.push(<GliderComponent  hasArrows="true">);
-    //     land.user.other_products.map((el)=>{
-    //             console.log(el)
-    //         });
-    //     output.push(</GliderComponent>);
-    //     console.log(output);
-    //     //return <Fragment>{ ReactHtmlParser(output) }</Fragment>;
-    // }
-
     useEffect(()=>{
         getData();
         const cartString = localStorage.getItem('cart');
         if(cartString) {
             const cart = JSON.parse(cartString);
             cart.map((el)=>{
-                if(el._id===id) setCartExists(true);
+                if(el._id===productId) setCartExists(true);
             })
         }
-    },[id]);
+        setOtherProductsShown(true);
+    },[productId]);
     return(
         <div className={s.Lot}>
             {loading?<Loading/>:null}
@@ -231,7 +225,7 @@ function Product(){
                                 </div>
                             </div>
                             <div className={s.lotOwner}>
-                                <img alt="img" src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"/>
+                                {land && land.user?<img alt="img" src={land.user.picture}/>:null}
                                 <div>
                                     <h3>{land && land.user?land.user.name:null}</h3>
                                     <p>{land && land.user?land.user.email:null}</p>
@@ -262,10 +256,7 @@ function Product(){
                     </div>
                 </div>
                 <h1>Інші оголошення автора:</h1>
-                <div className={s.otherProducts}>
-
-                </div>
-                {land && land.user? renderSlider():null}
+                {land && land.user && otherProductsShown? renderSlider():null}
 
 
             </div>

@@ -35,12 +35,14 @@ const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
 })
 app.use(adminBro.options.rootPath, router)
 
+app.use(bodyParser.json({limit: "500mb"}));
+app.use(bodyParser.urlencoded({limit: "500mb", extended: true, parameterLimit:50000}));
+
 app.use(express.json({ extended: true }));
 app.use(express.static('uploads'));
 app.use(express.static(path.join(__dirname, 'client' ,'build')));
 
-app.use(bodyParser.json({limit: "500mb"}));
-app.use(bodyParser.urlencoded({limit: "500mb", extended: true, parameterLimit:50000}));
+
 
 
 app.use('/api/auth', require('./routes/auth.routes'));
