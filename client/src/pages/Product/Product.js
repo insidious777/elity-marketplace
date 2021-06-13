@@ -103,9 +103,10 @@ function Product(){
                 const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
                 const publicKey = 'sandbox_i94658168608';
                 //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
-                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}","result_url":"http://45.90.33.206:3000/"}`;
+                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}", "server_url":"http://45.90.33.206:5000/product/liqpay/", "result_url":"http://45.90.33.206:3000/"}`;
                 console.log(json);
-                const data = btoa(json);
+                //const data = btoa(json);
+                const data = window.btoa(unescape(encodeURIComponent(json)))
                 const sign_string = privateKey+data+privateKey;
 
                 const signature = await sha1(sign_string);
@@ -128,13 +129,14 @@ function Product(){
         }catch(e){
             console.log(e);
         }
+        areaRef.current.value='';
         getData();
     }
 
     const buyHandler = async () => {
         let data;
         try{
-            data = await request(config.baseUrl + `/api/products/buy/${productId}`);
+           // data = await request(config.baseUrl + `/api/products/buy/${productId}`);
         }catch(e){
             console.log(e);
         }

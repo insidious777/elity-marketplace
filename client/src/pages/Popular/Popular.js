@@ -92,8 +92,7 @@ function Popular(){
             </div>
             <div className={s.content}>
                 {products?products.map((item, i)=>{
-                    console.log(item);
-                    return <Card item={item} key={i}/>
+                    if(item.status=='active') return <Card item={item} key={i}/>
                 }):null}
             </div>
 

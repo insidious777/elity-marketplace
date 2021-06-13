@@ -103,7 +103,7 @@ function AllProducts(props){
             </div>
                 <div className={s.content}>
                     {products?products.map((item, i)=>{
-                       return <Card item={item} key={i}/>
+                        if(item.status=='active') return <Card item={item} key={i}/>
                     }):null}
                 </div>
                 

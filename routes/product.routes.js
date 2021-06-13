@@ -181,4 +181,9 @@ router.get('/single/:id', async (req, res) => {
     }
 });
 
+router.post('/liqpay/',  async (req, res) => {
+    console.log(req);
+    console.log(req.body);
+});
+
 module.exports = router;

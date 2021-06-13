@@ -228,7 +228,6 @@
 .zoomPhoto img{
     position: relative;
     width: 60%;
-    opacity: 100%;
 }
 
 .cartDeleteButton{
