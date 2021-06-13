@@ -3,5 +3,5 @@
 // }
 
 module.exports = {
-    "baseUrl": 'https://elitymarketplace.herokuapp.com',
+    "baseUrl": 'http://45.90.33.206:5000',
 }

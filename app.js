@@ -3,36 +3,36 @@ const config = require('config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const AdminBro = require('admin-bro')
-// const AdminBroExpress = require('@admin-bro/express');
-// const AdminBroMongoose = require('admin-bro-mongoose');
-// require('../diplom/models/Category');
-// require('../diplom/models/File');
-// require('../diplom/models/Product');
-// require('../diplom/models/Region');
-// require('../diplom/models/User');
+const AdminBro = require('admin-bro')
+const AdminBroExpress = require('@admin-bro/express');
+const AdminBroMongoose = require('admin-bro-mongoose');
+require('../diplom/models/Category');
+require('../diplom/models/File');
+require('../diplom/models/Product');
+require('../diplom/models/Region');
+require('../diplom/models/User');
 
 const app = express();
-// AdminBro.registerAdapter(AdminBroMongoose);
-// const adminBro = new AdminBro({
-//     databases: [mongoose],
-//     rootPath: '/admin',
-// })
-// const ADMIN = {
-//     email: process.env.ADMIN_EMAIL || '777insidious777@gmail.com',
-//     password: process.env.ADMIN_PASSWORD || 'admin'
-// }
-// const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-//     cookieName: process.env.ADMIN_COOKIE_NAME || 'admin',
-//     cookiePassword: process.env.ADMIN_COOKIE_PASS || 'admin',
-//     authenticate: async (email, password) => {
-//         if(email === ADMIN.email && password === ADMIN.password){
-//             return ADMIN
-//         }
-//         return null
-//     }
-// })
-// app.use(adminBro.options.rootPath, router)
+AdminBro.registerAdapter(AdminBroMongoose);
+const adminBro = new AdminBro({
+    databases: [mongoose],
+    rootPath: '/admin',
+})
+const ADMIN = {
+    email: process.env.ADMIN_EMAIL || '777insidious777@gmail.com',
+    password: process.env.ADMIN_PASSWORD || 'admin'
+}
+const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+    cookieName: process.env.ADMIN_COOKIE_NAME || 'admin',
+    cookiePassword: process.env.ADMIN_COOKIE_PASS || 'admin',
+    authenticate: async (email, password) => {
+        if(email === ADMIN.email && password === ADMIN.password){
+            return ADMIN
+        }
+        return null
+    }
+})
+app.use(adminBro.options.rootPath, router)
 
 app.use(express.json({ extended: true }));
 app.use(express.static('uploads'));
