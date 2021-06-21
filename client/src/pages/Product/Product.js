@@ -103,7 +103,7 @@ function Product(){
                 const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
                 const publicKey = 'sandbox_i94658168608';
                 //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
-                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}", "server_url":"http://45.90.33.206:5000/product/liqpay/", "result_url":"http://45.90.33.206:3000/"}`;
+                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}","server_url":"http://45.90.33.206:5000/product/liqpay/","result_url":"http://45.90.33.206:3000/"}`;
                 console.log(json);
                 //const data = btoa(json);
                 const data = window.btoa(unescape(encodeURIComponent(json)))
@@ -227,7 +227,7 @@ function Product(){
                                 </div>
                             </div>
                             <div className={s.lotOwner}>
-                                {land && land.user?<img alt="img" src={land.user.picture}/>:null}
+                                {land && land.user?<img alt="img" src={config.baseUrl + land.user.picture}/>:null}
                                 <div>
                                     <h3>{land && land.user?land.user.name:null}</h3>
                                     <p>{land && land.user?land.user.email:null}</p>
@@ -253,11 +253,11 @@ function Product(){
                             <textarea ref={areaRef}>
 
                             </textarea>
-                            <button onClick={(e)=>{addComment(e)}}>Добавити відгук</button>
+                            <button onClick={(e)=>{addComment(e)}}>Надіслати</button>
                         </div>
                     </div>
                 </div>
-                <h1>Інші оголошення автора:</h1>
+                <h1 className={s.bottomTitle}>Інші оголошення автора:</h1>
                 {land && land.user && otherProductsShown? renderSlider():null}
 
 

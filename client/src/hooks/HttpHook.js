@@ -39,7 +39,7 @@ export const useHttp = () => {
         } catch (e) {
             setLoading(false);
             setMsg(e.message);
-            throw e;
+            console.log('ERROR', e)
         }
     }, []);
 

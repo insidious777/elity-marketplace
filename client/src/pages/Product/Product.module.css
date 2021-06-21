@@ -17,6 +17,15 @@
     position: relative;
 }
 
+.leftCol h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.bottomTitle{
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .leftArr{
     width: 40px;

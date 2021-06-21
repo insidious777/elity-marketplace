@@ -74,8 +74,6 @@ router.get('/',  async (req, res) => {
         if(category_id) query.category_id = category_id;
         if(region_id) query.region_id = region_id;
         if(search) query.title = {$regex: search};
-        console.log('date', date)
-        console.log(query);
         let products = await Product.find(query);
         if(date==='new') products = await Product.find(query).sort({timestamp: -1});
         const changedProducts = [];
@@ -133,7 +131,11 @@ router.post('/review/add/:id', auth, async (req, res) => {
 router.get('/counter/',  async (req, res) => {
     try {
         let products = await Product.find({});
-        res.json({count: products.length});
+        let counter = 0;
+        for(item in products) {
+            if(products[item].status=='active') counter++;
+        }
+        res.json({count: counter});
     } catch (e) {
         res.status(500).json(e);
     }

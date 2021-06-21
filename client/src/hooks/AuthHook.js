@@ -24,20 +24,7 @@ export const useAuth = () => {
     }, []);
 
 
-    // const fetchRefreshToken = async() => {
-    //     const tokenRefreshResponse = await fetch(config.baseUrl + '/api/v1/user/token/refresh', {
-    //         method:'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body:JSON.stringify({
-    //             "refresh":refreshToken
-    //         })
-    //     });
-    //     const data = await tokenRefreshResponse.json();
-    //     login(data.access, refreshToken);
-    //     return data.access;
-    // }
+
 
     useEffect(()=>{
         let data;

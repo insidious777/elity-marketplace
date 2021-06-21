@@ -39,6 +39,18 @@
 .right{
     font-size: 12px;
 }
+
+.right p{
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 24px;
+}
+
+.right h4{
+    font-size: 16px;
+    padding: 0 10px;
+}
+
 .left img{
     display: inline-block;
     width: 10px;

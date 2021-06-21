@@ -5,6 +5,7 @@ import logo from '../../assets/img/logo.png';
 import jwt from 'jwt-decode';
 import config from '../../config/config'
 import {AuthContext} from '../../context/AuthContext';
+
 function Header(props){
 
     const [userToken, setUserToken] = useState();
@@ -13,7 +14,7 @@ function Header(props){
     const [userMenuShown, setUserMenuShown] = useState(false);
     const history = useHistory();
     const sideBarButton = useRef(null);
-    const {logout} = useContext(AuthContext);
+    const {logout, token} = useContext(AuthContext);
     const closeSideBar = () => {
         sideBarButton.current.checked = false;
     }
@@ -37,9 +38,8 @@ function Header(props){
     }
 
     useEffect(()=>{
-        setUserToken(localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null);
-        window.addEventListener('storage', setUserToken(localStorage.getItem('userData')?jwt(JSON.parse(localStorage.getItem('userData')).token):null))
-    },[])
+        if(token) setUserToken(jwt(token));
+    },[props, token])
     return(
         <Fragment>
                 <nav className={s.navigation} style={navStyle}>

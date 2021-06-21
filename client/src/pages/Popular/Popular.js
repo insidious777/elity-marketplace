@@ -35,11 +35,13 @@ function Popular(){
                 console.log(true);
                 const data = await request(config.baseUrl + `/api/products/popular?${params}`);
                 if(data) setProducts(data);
+                else getLots();
             }else{
                 console.log(false);
                 const data = await request(config.baseUrl + '/api/products/popular');
                 console.log(data);
                 if(data) setProducts(data);
+                else getLots();
             }
         }
         getLots();
