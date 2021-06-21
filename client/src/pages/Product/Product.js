@@ -141,7 +141,7 @@ function Product(){
             console.log(e);
         }
         await generatePaynametData(land.price ,land.title);
-        formRef.current.submit();
+        //formRef.current.submit();
     }
 
     useEffect(()=>{
