@@ -156,12 +156,11 @@ router.post('/buy/:id', auth,  async (req, res) => {
         const signature = await crypto.createHash('sha1').update(sign_string).digest('base64');
         console.log('signature', signature);
 
-        // let product = await Product.findById(req.params.id);
-       // console.log(product);
-       // product.status = 'sold';
-       // product.buyer = req.user.userId;
-       // await product.save();
-       //  res.json({product});
+        let product = await Product.findById(req.params.id);
+       console.log(product);
+       product.status = 'sold';
+       product.buyer = req.user.userId;
+       await product.save();
         res.json({signature, data});
     } catch (e) {
         res.status(500).json(e);
