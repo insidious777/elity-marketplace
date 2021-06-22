@@ -3,5 +3,5 @@
 // }
 
 module.exports = {
-    "baseUrl": 'http://45.67.59.26/',
+    "baseUrl": 'http://45.67.59.26',
 }
