@@ -7,6 +7,7 @@ const config = require('config');
 const File = require('../models/File');
 const {check, validationResult} = require('express-validator');
 const User = require('../models/User');
+const crypto = require('crypto');
 const router = Router();
 //додати товар
 router.post('/add',
@@ -141,14 +142,27 @@ router.get('/counter/',  async (req, res) => {
     }
 });
 
-router.get('/buy/:id', auth,  async (req, res) => {
+router.post('/buy/:id', auth,  async (req, res) => {
     try {
-       let product = await Product.findById(req.params.id);
-       console.log(product);
-       product.status = 'sold';
-       product.buyer = req.user.userId;
-       await product.save();
-        res.json({product});
+        const body = req.body;
+        console.log(body);
+
+        const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
+        const publicKey = 'sandbox_i94658168608';
+
+        const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${body.price}","currency":"UAH","description":"${body.title}","order_id":"${Math.floor(Math.random()*999999)+''}","server_url":"http://45.67.59.26:5000/product/liqpay/","result_url":"http://45.67.59.26:5000/"}`;
+        const data =Buffer.from(json).toString('base64');
+        const sign_string = privateKey+data+privateKey;
+        const signature = await crypto.createHash('sha1').update(sign_string).digest('base64');
+        console.log('signature', signature);
+
+        // let product = await Product.findById(req.params.id);
+       // console.log(product);
+       // product.status = 'sold';
+       // product.buyer = req.user.userId;
+       // await product.save();
+       //  res.json({product});
+        res.json({signature, data});
     } catch (e) {
         res.status(500).json(e);
     }
@@ -183,7 +197,9 @@ router.get('/single/:id', async (req, res) => {
     }
 });
 
+
 router.post('/liqpay/',  async (req, res) => {
+    console.log('=====LIQPAY=====')
     console.log(req);
     console.log(req.body);
 });

@@ -13,7 +13,6 @@ import '../../assets/js/glider.js';
 import '../../assets/styles/glider.css';
 
 
-
 function Product(){
     const dataRef = useRef();
     const signatureRef = useRef();
@@ -92,35 +91,6 @@ function Product(){
         )
     }
 
-    async function generatePaynametData(price, description){
-            async function sha1(str) {
-                const buf = Uint8Array.from(unescape(encodeURIComponent(str)), c=>c.charCodeAt(0)).buffer;
-                const digest = await crypto.subtle.digest('SHA-1', buf);
-                const raw = String.fromCharCode.apply(null, new Uint8Array(digest));
-                return btoa(raw); // base64
-            }
-            try{
-                const privateKey = 'sandbox_TpYq0ya7uM6bf7G9TbdKznBpXunorwoAz6zxmlg2';
-                const publicKey = 'sandbox_i94658168608';
-                //{"public_key":"sandbox_i94658168608","version":"3","action":"pay","amount":"100","currency":"UAH","description":"test","order_id":"000001"}
-                const json = `{"public_key":"${publicKey}","version":"3","action":"pay","amount":"${price}","currency":"UAH","description":"${description}","order_id":"${Math.floor(Math.random()*999999)+''}","server_url":"http://45.90.33.206:5000/product/liqpay/","result_url":"http://45.90.33.206:3000/"}`;
-                console.log(json);
-                //const data = btoa(json);
-                const data = window.btoa(unescape(encodeURIComponent(json)))
-                const sign_string = privateKey+data+privateKey;
-
-                const signature = await sha1(sign_string);
-                console.log(data);
-                console.log(signature);
-                dataRef.current.value = data;
-                signatureRef.current.value = signature;
-            }catch (e) {
-                console.log(e);
-            }
-
-        }
-
-
     const addComment = async () => {
         const text = areaRef.current.value;
         let data;
@@ -136,12 +106,16 @@ function Product(){
     const buyHandler = async () => {
         let data;
         try{
-           // data = await request(config.baseUrl + `/api/products/buy/${productId}`);
+           data = await request(config.baseUrl + `/api/products/buy/${productId}`, 'POST', {price:land.price ,title:land.title});
+            if(data && data.signature && data.data){
+                dataRef.current.value = data.data;
+                signatureRef.current.value = data.signature;
+                formRef.current.submit();
+            }
         }catch(e){
             console.log(e);
         }
-        await generatePaynametData(land.price ,land.title);
-        //formRef.current.submit();
+
     }
 
     useEffect(()=>{
