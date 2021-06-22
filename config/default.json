@@ -1,6 +1,6 @@
 {
-    "port":8080,
+    "port":80,
     "jwtSecret": "Insidious marketplace",
-    "baseUrl": "http://localhost:5000",
+    "baseUrl": "http://45.67.59.26",
     "mongoUri": "mongodb+srv://Insidious29:jMeVaPw6k27jYIh3@marketplace-app.hqibo.mongodb.net/app?retryWrites=true&w=majority"
 }
